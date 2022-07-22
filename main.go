@@ -26,6 +26,15 @@ type User struct {
 	Role     Role
 }
 
+type Book struct {
+	BookNumber string
+	DateStart  string
+	DateEnd    string
+	Status     string
+	Notice     string
+	User       User
+}
+
 func (u User) showMenu() {
 	printTitle("MENU")
 	for menuTitle, _ := range u.Role.Actions {
@@ -52,9 +61,10 @@ func main() {
 			fmt.Println("SORRY YOU ARE NOT AUTHORIZED")
 		}
 	} else {
-		user = getAuthorizedUser("admin")
+		user = getAuthorizedUser("customer")
 	}
 
+infinity:
 	for {
 		user.showMenu()
 		action := user.waitAction()
@@ -62,7 +72,7 @@ func main() {
 		for menuTitle, roleAction := range user.Role.Actions {
 			if menuTitle[0:1] == action {
 				roleAction()
-				actionRunned = true
+				continue infinity
 			}
 		}
 

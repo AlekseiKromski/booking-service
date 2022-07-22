@@ -33,3 +33,23 @@ func adminListOfCustomers(users []User) {
 		}
 	}
 }
+
+func customerAddBook(bookings []Book, newBook *Book) {
+	fmt.Print("Book number: ")
+	fmt.Scan(&newBook.BookNumber)
+
+	fmt.Print("Status: ")
+	fmt.Scan(&newBook.Status)
+
+	fmt.Print("Notice: ")
+	fmt.Scan(&newBook.Notice)
+
+	fmt.Print("Book start date: ")
+	fmt.Scan(&newBook.DateStart)
+
+	fmt.Print("Book end date: ")
+	fmt.Scan(&newBook.DateEnd)
+
+	fmt.Printf("\n - [BOOK NUMBER: %s]\n - [Book status: %s]\n - [Book notice: %s]\n - [Book start date: %s]\n - [Book end date: %s]\n",
+		newBook.BookNumber, newBook.Status, newBook.Notice, newBook.DateStart, newBook.DateEnd)
+}

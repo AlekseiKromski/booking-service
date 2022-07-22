@@ -22,7 +22,8 @@ func getActions(role string) map[string]func() {
 		}
 	} else if role == "customer" {
 		actions["1. Add book"] = func() {
-			fmt.Println("PROCESS OF ADDING")
+			newBook := Book{BookNumber: "", DateStart: "", DateEnd: "", Notice: "", Status: "", User: User{}}
+			customerAddBook(bookings, &newBook)
 		}
 		actions["2. Show list of book"] = func() {
 			fmt.Println("PROCESS OF LISTING")
@@ -41,6 +42,8 @@ var users []User = []User{User{
 	Password: "admin",
 	Role:     Role{Name: "admin", Actions: nil},
 }}
+
+var bookings []Book = []Book{}
 
 func checkUser(username string, password string) (bool, User) {
 	for _, user := range users {
