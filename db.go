@@ -24,9 +24,10 @@ func getActions(role string) map[string]func() {
 		actions["1. Add book"] = func() {
 			newBook := Book{BookNumber: "", DateStart: "", DateEnd: "", Notice: "", Status: "", User: User{}}
 			customerAddBook(bookings, &newBook)
+			bookings = append(bookings, newBook)
 		}
 		actions["2. Show list of book"] = func() {
-			fmt.Println("PROCESS OF LISTING")
+			customerListOfBookings(bookings)
 		}
 	} else if role == "user" {
 		actions["1. check booking status"] = func() {

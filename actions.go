@@ -50,6 +50,25 @@ func customerAddBook(bookings []Book, newBook *Book) {
 	fmt.Print("Book end date: ")
 	fmt.Scan(&newBook.DateEnd)
 
+	newBook.User = *getUser()
+
+	printBook(*newBook)
+
+}
+
+func customerListOfBookings(bookings []Book) {
+	var output string
+
+	for _, book := range bookings {
+		if book.User.Username == getUser().Username {
+			printBook(book)
+		}
+	}
+
+	fmt.Println(output)
+}
+
+func printBook(book Book) {
 	fmt.Printf("\n - [BOOK NUMBER: %s]\n - [Book status: %s]\n - [Book notice: %s]\n - [Book start date: %s]\n - [Book end date: %s]\n",
-		newBook.BookNumber, newBook.Status, newBook.Notice, newBook.DateStart, newBook.DateEnd)
+		book.BookNumber, book.Status, book.Notice, book.DateStart, book.DateEnd)
 }

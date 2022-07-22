@@ -51,25 +51,25 @@ func (u User) waitAction() string {
 
 var authAttempts int = 4
 var isDev bool = true
+var LoggedUser User
 
 func main() {
-	var user User
 	if !isDev {
-		user = User{Username: "", Password: ""}
-		authorized := initialize(&user)
+		LoggedUser = User{Username: "", Password: ""}
+		authorized := initialize(&LoggedUser)
 		if !authorized {
 			fmt.Println("SORRY YOU ARE NOT AUTHORIZED")
 		}
 	} else {
-		user = getAuthorizedUser("customer")
+		LoggedUser = getAuthorizedUser("customer")
 	}
 
 infinity:
 	for {
-		user.showMenu()
-		action := user.waitAction()
+		LoggedUser.showMenu()
+		action := LoggedUser.waitAction()
 		actionRunned := false
-		for menuTitle, roleAction := range user.Role.Actions {
+		for menuTitle, roleAction := range LoggedUser.Role.Actions {
 			if menuTitle[0:1] == action {
 				roleAction()
 				continue infinity
@@ -120,4 +120,8 @@ func initialize(unAuthorizedUser *User) bool {
 	}
 
 	return false
+}
+
+func getUser() *User {
+	return &LoggedUser
 }
