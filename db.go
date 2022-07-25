@@ -1,9 +1,18 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
+	_ "github.com/lib/pq"
 	"os"
 )
+
+type connection struct {
+	User     string
+	Password string
+	Dbname   string
+	Host     string
+}
 
 func getActions(role string) map[string]func() {
 	actions := make(map[string]func())
@@ -13,25 +22,22 @@ func getActions(role string) map[string]func() {
 	}
 	if role == "admin" {
 		actions["1. Add new customer"] = func() {
-			customer := User{Username: "", Password: "", Role: Role{Name: "customer", Actions: nil}}
-			adminAddNewCustomer(&customer, &users)
-			users = append(users, customer)
+
+			adminAddNewCustomer()
 		}
 		actions["2. Show list of customers"] = func() {
-			adminListOfCustomers(users)
+			adminListOfCustomers()
 		}
 	} else if role == "customer" {
 		actions["1. Add book"] = func() {
-			newBook := Book{BookNumber: "", DateStart: "", DateEnd: "", Notice: "", Status: "", User: User{}}
-			customerAddBook(bookings, &newBook)
-			bookings = append(bookings, newBook)
+			customerAddBook()
 		}
 		actions["2. Show list of book"] = func() {
-			customerListOfBookings(bookings)
+			customerListOfBookings()
 		}
 	} else if role == "user" {
 		actions["1. check booking status"] = func() {
-			fmt.Println("PROCESS OF ADDING")
+			userCheckBookingStatus()
 		}
 	}
 	return actions
@@ -46,14 +52,42 @@ var users []User = []User{User{
 
 var bookings []Book = []Book{}
 
-func checkUser(username string, password string) (bool, User) {
-	for _, user := range users {
-		if user.Username == username && password == user.Password {
-			user.Role.Actions = getActions(user.Role.Name)
-			return true, user
-		}
+func InitDb() *sql.DB {
+
+	//init db connection and work with models
+	connection := connection{User: "postgres", Password: "", Host: "localhost", Dbname: "booking-service"}
+	connStr := "postgres://" + connection.User + ":" + connection.Password + "@" + connection.Host + "/" + connection.Dbname + "?sslmode=disable"
+	println(connStr)
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		println(err)
 	}
-	return false, User{}
+
+	fmt.Println("DATABASE CONNECT SUCCESSFULY")
+
+	//START MIGRATION IF NOT EXISTS
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS Role_(Id SERIAL PRIMARY KEY, Name VARCHAR)`)
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS User_ (Id SERIAL PRIMARY KEY,Username VARCHAR, Password VARCHAR, Role_id int,
+	CONSTRAINT FK_ROLE
+	 FOREIGN KEY(Role_id)
+	 REFERENCES Role_(Id))`)
+	_, err = db.Exec(`CREATE TABLE IF NOT EXISTS Book (
+		Id SERIAL PRIMARY KEY,
+		BookNumber VARCHAR,
+		DateStart varchar,
+		DateEnd varchar,
+		Status varchar,
+		Notice varchar,
+		User_id int,
+		CONSTRAINT FK_USER
+		  FOREIGN KEY(User_id)
+		  REFERENCES User_(Id)
+	)`)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	return db
 }
 
 //For testing

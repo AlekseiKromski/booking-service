@@ -1,38 +1,13 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"strings"
 )
 
-//TASKS
-/*
-	1) User can check status of your booking
-	2) Administrator can add new booking code
-	3) Program collect information about user actions
-
-	System should support:
-	1) login / logout / registration
-	2) Roles - (For administrative role user should enter code, that will be given by admin) (User / Customer / Admin)
-*/
-type Role struct {
-	Name    string
-	Actions map[string]func()
-}
-
-type User struct {
-	Username string
-	Password string
-	Role     Role
-}
-
-type Book struct {
-	BookNumber string
-	DateStart  string
-	DateEnd    string
-	Status     string
-	Notice     string
-	User       User
+type DataBase struct {
+	Source *sql.DB
 }
 
 func (u User) showMenu() {
@@ -41,7 +16,6 @@ func (u User) showMenu() {
 		fmt.Println(menuTitle)
 	}
 }
-
 func (u User) waitAction() string {
 	var action string
 	fmt.Print("Action number: ")
@@ -50,10 +24,12 @@ func (u User) waitAction() string {
 }
 
 var authAttempts int = 4
-var isDev bool = true
+var isDev bool = false
 var LoggedUser User
+var DBM DataBase
 
 func main() {
+	DBM.Source = InitDb()
 	if !isDev {
 		LoggedUser = User{Username: "", Password: ""}
 		authorized := initialize(&LoggedUser)
@@ -61,7 +37,7 @@ func main() {
 			fmt.Println("SORRY YOU ARE NOT AUTHORIZED")
 		}
 	} else {
-		LoggedUser = getAuthorizedUser("customer")
+		LoggedUser = getAuthorizedUser("admin")
 	}
 
 infinity:

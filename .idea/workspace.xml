@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d8b7883-53b4-4aaf-8008-603472b79d9c" name="Changes" comment="Create book action">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/actions.go" beforeDir="false" afterPath="$PROJECT_DIR$/actions.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/db.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="5d8b7883-53b4-4aaf-8008-603472b79d9c" name="Changes" comment="Add customer list of book" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,9 +40,20 @@
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/yanikarp/Documents/projects/booking-service",
     "nodejs_package_manager_path": "npm"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="go build booking-service" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="booking-service" />
@@ -67,7 +73,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1658427363038</updated>
-      <workItem from="1658427364240" duration="9563000" />
+      <workItem from="1658427364240" duration="10147000" />
+      <workItem from="1658751284122" duration="11283000" />
     </task>
     <task id="LOCAL-00001" summary="Create simple booking service [:action working only with admin]">
       <created>1658433725676</created>
@@ -83,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658472070276</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add customer list of book">
+      <created>1658501955035</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1658501955035</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,7 +117,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create simple booking service [:action working only with admin]" />
     <MESSAGE value="Create book action" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create book action" />
+    <MESSAGE value="Add customer list of book" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add customer list of book" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
